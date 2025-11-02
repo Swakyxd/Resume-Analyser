@@ -12,6 +12,7 @@ This project implements a state-of-the-art NLP model for resume classification. 
 - ✅ **100% Validation Accuracy** achieved
 - ✅ **GPU Accelerated** training on NVIDIA RTX 3060
 - ✅ **962 Resume Dataset** from Kaggle
+- ✅ **Pre-trained Model Available** on [🤗 Hugging Face Hub](https://huggingface.co/SwaKyxd/resume-analyser-bert)
 
 ## 📊 Model Performance
 
@@ -74,24 +75,33 @@ resume-analyser/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/resume-analyser.git
-cd resume-analyser
+git clone https://github.com/Swakyxd/Resume-Analyser.git
+cd Resume-Analyser
 ```
 
-2. **Create conda environment**
+2. **Download the trained model from Hugging Face**
+```bash
+# Install Hugging Face Hub
+pip install huggingface-hub
+
+# Download the model (436MB)
+huggingface-cli download SwaKyxd/resume-analyser-bert --local-dir models/saved_models/resume_analyser_bert
+```
+
+3. **Create conda environment**
 ```bash
 conda create -n DL-GPU python=3.10
 conda activate DL-GPU
 ```
 
-3. **Install dependencies**
+4. **Install dependencies**
 ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 pip install transformers==4.47.1 tokenizers==0.21.0
 pip install pandas scikit-learn matplotlib seaborn kagglehub jupyter
 ```
 
-4. **Verify GPU setup**
+5. **Verify GPU setup**
 ```bash
 python src/check_gpu.py
 ```
@@ -124,11 +134,27 @@ The notebook includes:
 
 ### Loading the Trained Model
 
+**Option 1: Load from Hugging Face Hub (Recommended)**
 ```python
 from transformers import BertForSequenceClassification, BertTokenizer
 import torch
 
-# Load model and tokenizer
+# Load directly from Hugging Face
+model = BertForSequenceClassification.from_pretrained('SwaKyxd/resume-analyser-bert')
+tokenizer = BertTokenizer.from_pretrained('SwaKyxd/resume-analyser-bert')
+
+# Set device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model.to(device)
+model.eval()
+```
+
+**Option 2: Load from local files**
+```python
+from transformers import BertForSequenceClassification, BertTokenizer
+import torch
+
+# Load from downloaded model directory
 model = BertForSequenceClassification.from_pretrained('models/saved_models/resume_analyser_bert')
 tokenizer = BertTokenizer.from_pretrained('models/saved_models/resume_analyser_bert')
 
