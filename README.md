@@ -13,6 +13,7 @@ This project implements a state-of-the-art NLP model for resume classification. 
 - ✅ **GPU Accelerated** training on NVIDIA RTX 3060
 - ✅ **962 Resume Dataset** from Kaggle
 - ✅ **Pre-trained Model Available** on [🤗 Hugging Face Hub](https://huggingface.co/SwaKyxd/resume-analyser-bert)
+- ✅ **REST API** for easy integration and deployment
 
 ## 📊 Model Performance
 
@@ -44,6 +45,12 @@ Data Science, Java Developer, Testing, DevOps Engineer, Python Developer, Web De
 
 ```
 resume-analyser/
+├── api/                             # FastAPI REST API
+│   ├── app.py                       # API application
+│   ├── test_api.py                  # API tests
+│   ├── requirements.txt             # API dependencies
+│   ├── README.md                    # API documentation
+│   └── QUICKSTART.md                # Quick start guide
 ├── data/
 │   └── raw/
 │       └── resume_dataset/          # Kaggle resume dataset
@@ -117,6 +124,32 @@ path = kagglehub.dataset_download("gauravduttakiit/resume-dataset")
 ```
 
 ## 💻 Usage
+
+### 🚀 Quick Start: Using the REST API
+
+The easiest way to use the model is through the FastAPI REST API:
+
+1. **Start the API:**
+```bash
+cd api
+python app.py
+```
+
+2. **Access the interactive docs:** http://localhost:8000/docs
+
+3. **Make predictions:**
+```python
+import requests
+
+resume = "Python developer with 5 years experience in Django and Flask"
+response = requests.post(
+    "http://localhost:8000/predict",
+    json={"text": resume}
+)
+print(response.json())
+```
+
+📖 **Full API documentation:** See [api/README.md](api/README.md)
 
 ### Training the Model
 
