@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 # Initialize FastAPI app
 app = FastAPI(
     title="Resume Analyser API",
-    description="API for classifying resumes into 25 job categories using BERT",
-    version="1.0.0",
+    description="API for classifying resumes into 25 job categories using BERT (95.85% accuracy)",
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -130,8 +130,10 @@ async def load_model():
 async def root():
     """Root endpoint with API information."""
     return {
-        "message": "Resume Analyser API",
-        "version": "1.0.0",
+        "message": "Resume Analyser API - Enhanced Model (95.85% Accuracy)",
+        "version": "2.0.0",
+        "model_config": "config_6_moderate",
+        "accuracy": "95.85%",
         "endpoints": {
             "health": "/health",
             "predict": "/predict",

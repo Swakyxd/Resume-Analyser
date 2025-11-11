@@ -2,6 +2,14 @@
 
 FastAPI-based REST API for classifying resumes into 25 job categories using the fine-tuned BERT model.
 
+## Model Performance
+
+- **Accuracy**: 95.85%
+- **Balanced Accuracy**: 95.66%
+- **F1-Score (Macro)**: 95.65%
+- **Configuration**: config_6_moderate (3 epochs, optimized regularization)
+- **Training Time**: 4.37 minutes
+
 ## Features
 
 - 🚀 Fast and efficient resume classification
